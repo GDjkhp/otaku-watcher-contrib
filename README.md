@@ -15,8 +15,10 @@
 ## ⛑️ Support
 | Scraper | Status | Films | TV | Supports <br> Android & iOS | Notes |
 | ------- | ------ | --- | --- | ---------------------- | :------: |
-| `anitaku` | 🟢 Stable | ✅ | ✅  | ❌ | okay quality (720p) |
-| `tokyo` (tokyoinsider) | 🔵 Experimental | ✅ | ✅ | ✅ | **New scraper**, good quality (1080p) **for older anime** but a lot of the time absolutely trash quality for newer shows and not all streams have english dub. Give it a try for older anime though like anime before 2018. |
+| [`anitaku`](http://anitaku.bz) | 🔴 Not working | ✅ | ✅  | ❌ | okay quality (720p) |
+| [`tokyo`](https://www.tokyoinsider.com) | 🔵 Experimental | ✅ | ✅ | ✅ | **New scraper**, good quality (1080p) **for older anime** but a lot of the time absolutely trash quality for newer shows and not all streams have english dub. Give it a try for older anime though like anime before 2018. |
+| [`hianime`](http://anitaku.bz) | 🔵 Experimental | ✅ | ✅  | ❓ | 🐐 (multi-subs and eng dubs) |
+| [`animepahe`](https://animepahe.ru) | 🔵 Experimental | ✅ | ✅  | ❓ | 🐐 |
 
 ## Installation
 Here's how to install and add the plugin to mov-cli.
@@ -30,6 +32,9 @@ pip install otaku-watcher
 mov-cli -e
 ```
 ```toml
+[mov-cli]
+ddg2 = "__ddg2_=<ddg2 cookie>" # animepahe scraper (optional) 
+
 [mov-cli.plugins]
 anime = "otaku-watcher"
 ```
