@@ -15,9 +15,9 @@
 ## ⛑️ Support
 | Scraper | Status | Films | TV | Supports <br> Android & iOS | Notes |
 | ------- | ------ | --- | --- | ---------------------- | :------: |
-| [`anitaku`](http://anitaku.bz) | 🔴 Not working | ✅ | ✅  | ❌ | okay quality (720p) |
+| [`anitaku`](https://anitaku.bz) | 🔴 Not working | ✅ | ✅  | ❌ | okay quality (720p) |
 | [`tokyo`](https://www.tokyoinsider.com) | 🔵 Experimental | ✅ | ✅ | ✅ | **New scraper**, good quality (1080p) **for older anime** but a lot of the time absolutely trash quality for newer shows and not all streams have english dub. Give it a try for older anime though like anime before 2018. |
-| [`hianime`](http://hianime.to) | 🔵 Experimental | ✅ | ✅  | ❓ | 🐐 (multi-subs and eng dubs) |
+| [`hianime`](https://hianime.to) | 🔵 Experimental | ✅ | ✅  | ❓ | 🐐 (multi-subs and eng dubs) |
 | [`animepahe`](https://animepahe.ru) | 🔵 Experimental | ✅ | ✅  | ❓ | 🐐 (hard-coded subs and eng dubs) |
 
 ## Installation
