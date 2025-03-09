@@ -24,7 +24,8 @@ class AnimePaheScraper(Scraper):
         self.search_url = f"{self.api_url}?m=search&q="
         self.release_url = f"{self.api_url}?m=release&id="
         self.play_url = f"{self.base_url}/play"
-        http_client.headers = {"Referer": self.base_url, "Cookie": config.data["ddg2"]}
+        env_config = config.get_env_config()
+        http_client.headers = {"Referer": self.base_url, "Cookie": env_config("DDG2")}
         super().__init__(config, http_client, options)
 
     def _request(self, url: str, params: Optional[Dict] = None) -> Dict:
@@ -50,9 +51,11 @@ class AnimePaheScraper(Scraper):
         response = self._request(f"{self.release_url}{metadata.id}&sort=episode_asc&page=1")
         if not response.get("data"): return {}
         get_all_eps = self._request_html(f"{self.play_url}/{metadata.id}/{response['data'][0]['session']}")
+
         soup = self.soup(get_all_eps)
         items = soup.find("div", {"class": "clusterize-scroll"}).findAll("a")
         urls = [items[i].get("href") for i in range(len(items))]
+
         episode_map = {}
         episode_map[1] = len(urls) # [season] = episodes
         if not episode_map: return {None: 1}
@@ -85,9 +88,11 @@ class AnimePaheScraper(Scraper):
         response = self._request(f"{self.release_url}{metadata.id}&sort=episode_asc&page=1")
         if not response.get("data"): return {}
         get_all_eps = self._request_html(f"{self.play_url}/{metadata.id}/{response['data'][0]['session']}")
+
         soup = self.soup(get_all_eps)
         items = soup.find("div", {"class": "clusterize-scroll"}).findAll("a")
         urls = [items[i].get("href") for i in range(len(items))]
+
         target_episode = None
         if metadata.type == MetadataType.MULTI:
             target_episode = urls[episode.episode-1] if episode and episode.episode else urls[0]
@@ -95,6 +100,7 @@ class AnimePaheScraper(Scraper):
             target_episode = urls[0]
         episode_page_url = f"{self.base_url}{target_episode}"
         episode_page_html = self._request_html(episode_page_url)
+
         soup = self.soup(episode_page_html)
         embed_sources = soup.find("div", {"id": "resolutionMenu"}).findAll("button", {"class": "active"}) # TODO: Add quality selection
         embed_url = embed_sources[0].get("data-src")

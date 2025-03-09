@@ -32,13 +32,16 @@ pip install otaku-watcher
 mov-cli -e
 ```
 ```toml
-[mov-cli]
-ddg2 = "__ddg2_=<ddg2 cookie>" # animepahe scraper (optional) 
-
 [mov-cli.plugins]
 anime = "otaku-watcher"
 ```
-
+3. Set `DDG2` cookie for animepahe scraper or it will not work. (optional)
+```sh
+mov-cli -e .env
+```
+```
+DDG2 = "__ddg2_=<ddg2 cookie>"
+```
 ## Usage
 ```sh
 mov-cli -s anime lycoris recoil
