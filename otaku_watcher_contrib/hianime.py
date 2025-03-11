@@ -54,9 +54,9 @@ class HiAnimeScraper(Scraper):
         # Find the requested episode
         target_episode = None
         if metadata.type == MetadataType.MULTI:
-            episode_num = episode.episode if episode and episode.episode else 1
-            for ep in episodes:
-                if ep["number"] == episode_num:
+            episode_num = episode.episode-1 if episode and episode.episode else 0 # use index zero
+            for i, ep in enumerate(episodes):
+                if i == episode_num:
                     target_episode = ep
                     break
         else:

@@ -1,24 +1,22 @@
 <div align="center">
 
   # otaku-watcher-contrib
+  <img src="https://gdjkhp.github.io/img/kagura-merge-avatar.gif" width=64>
+
   <sub>A mov-cli plugin for watching anime and more!</sub>
 
-  [![Pypi Version](https://img.shields.io/pypi/v/otaku-watcher?style=flat)](https://pypi.org/project/otaku-watcher)
+  [![Pypi Version](https://img.shields.io/pypi/v/otaku-watcher-contrib?style=flat)](https://pypi.org/project/otaku-watcher-contrib)
 
-  <img src="https://github.com/JDALab/otaku-watcher/assets/123201787/2df8d707-b472-48b3-aaa1-f6d5154c686d">
-
+  <img src="https://gdjkhp.github.io/img/gintama.png">
 </div>
-
-> [!CAUTION]
-> We are on the lookout for maintainers and if we don't find any soon this project may become unmaintained! Please consider or nominate a friend. Thank you.
 
 ## ⛑️ Support
 | Scraper | Status | Films | TV | Mobile support |
 | ------- | ------ | --- | --- | ---------------------- |
-| [`anitaku`](https://anitaku.bz) | 🔴 Not working | ✅ | ✅  | ❌ |
 | [`tokyo`](https://www.tokyoinsider.com) | 🔵 Experimental | ✅ | ✅ | ✅ |
 | [`hianime`](https://hianime.to) | 🔵 Experimental | ✅ | ✅  | ❓ |
 | [`animepahe`](https://animepahe.ru) | 🔵 Experimental | ✅ | ✅  | ❓ |
+| [`kisskh`](https://kisskh.id) | 🔵 Experimental | ✅ | ✅  | ❓ |
 
 ## Installation
 Here's how to install and add the plugin to mov-cli.
@@ -33,16 +31,9 @@ mov-cli -e
 ```
 ```toml
 [mov-cli.plugins]
-anime = "otaku-watcher"
-```
-3. OPTIONAL: Set `DDG2` cookie for animepahe scraper or it will not work.
-```sh
-mov-cli -e .env
-```
-```
-DDG2 = "__ddg2_=<ddg2 cookie>"
+anime = "otaku-watcher-contrib"
 ```
 ## Usage
 ```sh
-mov-cli -s anime lycoris recoil
+mov-cli lycoris recoil
 ```

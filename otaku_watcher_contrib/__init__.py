@@ -4,11 +4,11 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mov_cli.plugins import PluginHookData
 
-from anitaku import AnitakuScraper
-from tokyo_insider import TokyoInsider
-from hianime import HiAnimeScraper
-from animepahe import AnimePaheScraper
-from vadapav import VadapavScraper
+from .anitaku import AnitakuScraper
+from .tokyo_insider import TokyoInsider
+from .hianime import HiAnimeScraper
+from .animepahe import AnimePaheScraper
+from .kisskh import KissKhScraper
 
 plugin: PluginHookData = {
     "version": 1,
@@ -19,8 +19,7 @@ plugin: PluginHookData = {
         "tokyo": TokyoInsider,
         "hianime": HiAnimeScraper,
         "animepahe": AnimePaheScraper,
-        "anitaku": AnitakuScraper,
-        "vadapav": VadapavScraper,
+        "kisskh": KissKhScraper,
     }
 }
 

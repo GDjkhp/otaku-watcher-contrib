@@ -25,7 +25,7 @@ class AnimePaheScraper(Scraper):
         self.release_url = f"{self.api_url}?m=release&id="
         self.play_url = f"{self.base_url}/play"
         env_config = config.get_env_config()
-        http_client.headers = {"Referer": self.base_url, "Cookie": env_config("DDG2")}
+        http_client.headers = {"Referer": self.base_url, "Cookie": "__ddg2_="}
         super().__init__(config, http_client, options)
 
     def _request(self, url: str, params: Optional[Dict] = None) -> Dict:
