@@ -41,11 +41,11 @@ GitHub = "https://github.com/GDjkhp/otaku-watcher-contrib"
 BugTracker = "https://github.com/GDjkhp/otaku-watcher-contrib/issues"
 
 [tool.setuptools.dynamic]
-version = { attr = "otaku_watcher.__version__" }
+version = { attr = "otaku_watcher_contrib.__version__" }
 
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["otaku_watcher*"]
+include = ["otaku_watcher_contrib*"]
