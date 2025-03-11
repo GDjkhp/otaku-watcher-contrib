@@ -1,7 +1,7 @@
 <div align="center">
 
-  # otaku-watcher
-  <sub>A mov-cli plugin for watching anime.</sub>
+  # otaku-watcher-contrib
+  <sub>A mov-cli plugin for watching anime and more!</sub>
 
   [![Pypi Version](https://img.shields.io/pypi/v/otaku-watcher?style=flat)](https://pypi.org/project/otaku-watcher)
 
@@ -13,19 +13,19 @@
 > We are on the lookout for maintainers and if we don't find any soon this project may become unmaintained! Please consider or nominate a friend. Thank you.
 
 ## ⛑️ Support
-| Scraper | Status | Films | TV | Supports <br> Android & iOS | Notes |
-| ------- | ------ | --- | --- | ---------------------- | :------: |
-| [`anitaku`](https://anitaku.bz) | 🔴 Not working | ✅ | ✅  | ❌ | okay quality (720p) |
-| [`tokyo`](https://www.tokyoinsider.com) | 🔵 Experimental | ✅ | ✅ | ✅ | **New scraper**, good quality (1080p) **for older anime** but a lot of the time absolutely trash quality for newer shows and not all streams have english dub. Give it a try for older anime though like anime before 2018. |
-| [`hianime`](https://hianime.to) | 🔵 Experimental | ✅ | ✅  | ❓ | 🐐 (multi-subs and eng dubs) |
-| [`animepahe`](https://animepahe.ru) | 🔵 Experimental | ✅ | ✅  | ❓ | 🐐 (hard-coded subs and eng dubs) |
+| Scraper | Status | Films | TV | Mobile support |
+| ------- | ------ | --- | --- | ---------------------- |
+| [`anitaku`](https://anitaku.bz) | 🔴 Not working | ✅ | ✅  | ❌ |
+| [`tokyo`](https://www.tokyoinsider.com) | 🔵 Experimental | ✅ | ✅ | ✅ |
+| [`hianime`](https://hianime.to) | 🔵 Experimental | ✅ | ✅  | ❓ |
+| [`animepahe`](https://animepahe.ru) | 🔵 Experimental | ✅ | ✅  | ❓ |
 
 ## Installation
 Here's how to install and add the plugin to mov-cli.
 
 1. Install the pip package.
 ```sh
-pip install otaku-watcher
+pip install otaku-watcher-contrib
 ```
 2. Then add the plugin to your mov-cli config.
 ```sh
@@ -35,7 +35,7 @@ mov-cli -e
 [mov-cli.plugins]
 anime = "otaku-watcher"
 ```
-3. Set `DDG2` cookie for animepahe scraper or it will not work. (optional)
+3. OPTIONAL: Set `DDG2` cookie for animepahe scraper or it will not work.
 ```sh
 mov-cli -e .env
 ```

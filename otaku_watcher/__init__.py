@@ -4,14 +4,15 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mov_cli.plugins import PluginHookData
 
-from .anitaku import AnitakuScraper
-from .tokyo_insider import TokyoInsider
-from .hianime import HiAnimeScraper
-from .animepahe import AnimePaheScraper
+from anitaku import AnitakuScraper
+from tokyo_insider import TokyoInsider
+from hianime import HiAnimeScraper
+from animepahe import AnimePaheScraper
+from vadapav import VadapavScraper
 
 plugin: PluginHookData = {
     "version": 1,
-    "package_name": "otaku-watcher",  # Required for the plugin update checker.
+    "package_name": "otaku-watcher-contrib",  # Required for the plugin update checker.
     "scrapers": {
         "DEFAULT": TokyoInsider,
         "ANDROID.DEFAULT": TokyoInsider,
@@ -19,6 +20,7 @@ plugin: PluginHookData = {
         "hianime": HiAnimeScraper,
         "animepahe": AnimePaheScraper,
         "anitaku": AnitakuScraper,
+        "vadapav": VadapavScraper,
     }
 }
 

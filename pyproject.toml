@@ -1,6 +1,6 @@
 [project]
-name = "otaku-watcher"
-description = "A mov-cli plugin for watching anime."
+name = "otaku-watcher-contrib"
+description = "A mov-cli plugin for watching anime and more!"
 authors = []
 readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.8"
@@ -35,8 +35,8 @@ dev = [
 ]
 
 [project.urls]
-GitHub = "https://github.com/JDALab/otaku-watcher"
-BugTracker = "https://github.com/JDALab/otaku-watcher/issues"
+GitHub = "https://github.com/GDjkhp/otaku-watcher-contrib"
+BugTracker = "https://github.com/GDjkhp/otaku-watcher-contrib/issues"
 
 [tool.setuptools.dynamic]
 version = { attr = "otaku_watcher.__version__" }
