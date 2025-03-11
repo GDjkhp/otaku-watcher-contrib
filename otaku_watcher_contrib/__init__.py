@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mov_cli.plugins import PluginHookData
 
-from .anitaku import AnitakuScraper
 from .tokyo_insider import TokyoInsider
 from .hianime import HiAnimeScraper
 from .animepahe import AnimePaheScraper
