@@ -30,7 +30,6 @@ dependencies = [
 
     "mov-cli>=4.4",
     "thefuzz",
-    "pydantic",
     "quickjs",
 ]
 
