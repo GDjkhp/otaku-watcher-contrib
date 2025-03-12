@@ -2,45 +2,88 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Iterable, Optional, Dict
+    from typing import Iterable, Optional, Dict, List, Any
 
     from mov_cli import Config
     from mov_cli.http_client import HTTPClient
     from mov_cli.scraper import ScraperOptionsT
-from typing import Any, Iterable, Optional, Dict, List, Optional # always type check for pydantic to work
 
 from mov_cli.utils import EpisodeSelector
 from mov_cli import Scraper, Multi, Single, Metadata, MetadataType
 
-from pydantic import BaseModel, Field, RootModel
 from quickjs import Context as quickjsContext
 
 __all__ = ("KissKhScraper",)
 
-class Episode(BaseModel):
-    id: int
-    number: float
-    sub: int
+class Episode:
+    def __init__(self, id: int, number: float, sub: int):
+        self.id = id
+        self.number = number
+        self.sub = sub
 
-class Drama(BaseModel):
-    description: str
-    release_date: str = Field(..., alias="releaseDate")
-    trailer: str
-    country: str
-    status: str
-    type: str
-    next_ep_date_id: int = Field(..., alias="nextEpDateID")
-    episodes: List[Episode]
-    episodes_count: int = Field(..., alias="episodesCount")
-    label: Any
-    favorite_id: int = Field(..., alias="favoriteID")
-    thumbnail: str
-    id: int
-    title: str
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> Episode:
+        return cls(
+            id=data["id"],
+            number=data["number"],
+            sub=data["sub"]
+        )
 
-    def __init__(self, **data: Any) -> None:
-        data["episodes"] = sorted(data["episodes"], key=lambda episode: episode["number"])
-        super().__init__(**data)
+class Drama:
+    def __init__(
+        self,
+        description: str,
+        release_date: str,
+        trailer: str,
+        country: str,
+        status: str,
+        type: str,
+        next_ep_date_id: int,
+        episodes: List[Episode],
+        episodes_count: int,
+        label: Any,
+        favorite_id: int,
+        thumbnail: str,
+        id: int,
+        title: str
+    ):
+        self.description = description
+        self.release_date = release_date
+        self.trailer = trailer
+        self.country = country
+        self.status = status
+        self.type = type
+        self.next_ep_date_id = next_ep_date_id
+        self.episodes = episodes
+        self.episodes_count = episodes_count
+        self.label = label
+        self.favorite_id = favorite_id
+        self.thumbnail = thumbnail
+        self.id = id
+        self.title = title
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> Drama:
+        # Sort episodes by episode number
+        episode_data = sorted(data["episodes"], key=lambda episode: episode["number"])
+        episodes = [Episode.from_dict(ep) for ep in episode_data]
+        
+        return cls(
+            description=data["description"],
+            release_date=data["releaseDate"],
+            trailer=data["trailer"],
+            country=data["country"],
+            status=data["status"],
+            type=data["type"],
+            next_ep_date_id=data["nextEpDateID"],
+            episodes=episodes,
+            episodes_count=data["episodesCount"],
+            label=data["label"],
+            favorite_id=data["favoriteID"],
+            thumbnail=data["thumbnail"],
+            id=data["id"],
+            title=data["title"]
+        )
 
     def get_episodes_ids(self) -> Dict[int, int]:
         episode_ids = {}
@@ -48,43 +91,91 @@ class Drama(BaseModel):
             episode_ids[episode.number] = episode.id
         return episode_ids
 
-class DramaInfo(BaseModel):
-    episodes_count: int = Field(..., alias="episodesCount")
-    label: str
-    favorite_id: int = Field(..., alias="favoriteID")
-    thumbnail: str
-    id: int
-    title: str
+class DramaInfo:
+    def __init__(
+        self,
+        episodes_count: int,
+        label: str,
+        favorite_id: int,
+        thumbnail: str,
+        id: int,
+        title: str
+    ):
+        self.episodes_count = episodes_count
+        self.label = label
+        self.favorite_id = favorite_id
+        self.thumbnail = thumbnail
+        self.id = id
+        self.title = title
 
-class Search(RootModel):
-    root: List[DramaInfo]
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> DramaInfo:
+        return cls(
+            episodes_count=data["episodesCount"],
+            label=data["label"],
+            favorite_id=data["favoriteID"],
+            thumbnail=data["thumbnail"],
+            id=data["id"],
+            title=data["title"]
+        )
+
+class Search:
+    def __init__(self, dramas: List[DramaInfo]):
+        self.dramas = dramas
 
     def __iter__(self):
-        return iter(self.root)
+        return iter(self.dramas)
 
     def __getitem__(self, item):
-        return self.root[item]
+        return self.dramas[item]
 
     def __len__(self) -> int:
-        return len(self.root)
+        return len(self.dramas)
 
-class SubItem(BaseModel):
-    src: str
-    label: str
-    land: str
-    default: bool
+    @classmethod
+    def from_list(cls, data: List[Dict[str, Any]]) -> Search:
+        dramas = [DramaInfo.from_dict(item) for item in data]
+        return cls(dramas)
 
-class Sub(RootModel):
-    root: List[SubItem]
+class SubItem:
+    def __init__(
+        self,
+        src: str,
+        label: str,
+        land: str,
+        default: bool
+    ):
+        self.src = src
+        self.label = label
+        self.land = land
+        self.default = default
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> SubItem:
+        return cls(
+            src=data["src"],
+            label=data["label"],
+            land=data["land"],
+            default=data["default"]
+        )
+
+class Sub:
+    def __init__(self, subtitles: List[SubItem]):
+        self.subtitles = subtitles
 
     def __iter__(self):
-        return iter(self.root)
+        return iter(self.subtitles)
 
     def __getitem__(self, item):
-        return self.root[item]
+        return self.subtitles[item]
 
     def __len__(self) -> int:
-        return len(self.root)
+        return len(self.subtitles)
+
+    @classmethod
+    def from_list(cls, data: List[Dict[str, Any]]) -> Sub:
+        subtitles = [SubItem.from_dict(item) for item in data]
+        return cls(subtitles)
 
 class KissKhScraper(Scraper):
     def __init__(
@@ -186,7 +277,7 @@ class KissKhScraper(Scraper):
         """
         drama_api_url = self._drama_api_url(drama_id=drama_id)
         response = self._request(drama_api_url)
-        drama = Drama.parse_obj(response)
+        drama = Drama.from_dict(response)
         return drama.get_episodes_ids()
 
     def get_subtitles(self, episode_id: int, *language_filter: str) -> List[SubItem]:
@@ -199,8 +290,8 @@ class KissKhScraper(Scraper):
         """
         subtitle_api_url = self._subtitle_api_url(episode_id=episode_id)
         response = self._request(subtitle_api_url)
-        subtitles: Sub = Sub.parse_obj(response)
-        filtered_subtitles: List[SubItem] = []
+        subtitles = Sub.from_list(response)
+        filtered_subtitles = []
         if "all" in language_filter:
             filtered_subtitles.extend(subtitle for subtitle in subtitles)
         elif language_filter:
@@ -215,7 +306,7 @@ class KissKhScraper(Scraper):
         """
         search_api_url = self._search_api_url(query)
         response = self._request(search_api_url)
-        return Search.parse_obj(response)
+        return Search.from_list(response)
 
     def get_stream_url(self, episode_id: int) -> str:
         """Stream video url for specific episode
@@ -231,7 +322,7 @@ class KissKhScraper(Scraper):
     def get_drama(self, drama_id: int):
         drama_api_url = self._drama_api_url(drama_id=drama_id)
         response = self._request(drama_api_url)
-        return Drama.parse_obj(response)
+        return Drama.from_dict(response)
 
     def _get_token(self, episode_id: int) -> str:
         '''
